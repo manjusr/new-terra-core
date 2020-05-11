@@ -1,0 +1,26 @@
+// Styles specific to development only
+// stylelint-disable
+:local {
+  .app {
+    padding: 1.25rem;
+  }
+
+  .site-nav {
+    & > li {
+      font-size: 1.25rem;
+      padding: 0.5rem 0;
+    }
+  }
+
+  .iconMargin {
+    margin-right: 5px;
+  }
+
+  .warningRow {
+    background-color: #ffe8ba;
+  }
+
+  .errorRow {
+    background-color: #ffccd1;
+  }
+}
