@@ -135,6 +135,8 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "terra-list": "^4.29.0"
+    "terra-collapsible-menu-view": "^6.32.0",
+    "terra-list": "^4.29.0",
+    "terra-menu": "^6.32.0"
   }
 }

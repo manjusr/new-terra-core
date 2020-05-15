@@ -8,6 +8,18 @@ The TreeView component provides a way to render data in a hierarchical tree stru
   - `npm install terra-tree-view`
 
 <!-- AUTO-GENERATED-CONTENT:START Peer Dependencies -->
+## Peer Dependencies
+
+This component requires the following peer dependencies be installed in your app for the component to properly function.
+
+| Peer Dependency | Version |
+|-|-|
+| react | ^16.8.5 |
+| react-dom | ^16.8.5 |
+| react-intl | ^2.8.0 |
+
+
+
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Dependencies
