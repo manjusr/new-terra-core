@@ -80,11 +80,10 @@ describe('Empty TreeView with selection enabled', () => {
     </IntlProvider>
   );
 
+  const newLocal = 'should render a empty tree with checkbox in header';
   // Snapshot Tests
-  it('should render a empty tree with checkbox in header', () => {
+  it(newLocal, () => {
     const wrapper = mount(treeViewSelectionEnabledRender);
-    debugger;
-    //console.log(wrapper.debug());
     expect(wrapper).toMatchSnapshot();
   });
 });
