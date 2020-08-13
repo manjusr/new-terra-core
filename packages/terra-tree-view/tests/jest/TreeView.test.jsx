@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { shallowWithIntl, mountWithIntl } from 'terra-enzyme-intl';
 import Button from 'terra-button';
 import IconAlert from 'terra-icon/lib/icon/IconAlert';
 import IconWarning from 'terra-icon/lib/icon/IconWarning';
@@ -8,20 +8,16 @@ import IconDueSoon from 'terra-icon/lib/icon/IconDueSoon';
 import TreeView from '../../src/TreeView';
 import TreeViewBase from '../../src/TreeViewBase';
 import SingleSelectTreeView from '../../src/SingleSelectTreeView';
-import messages from '../../translations/en-US.json';
 
-const locale = 'en-US';
+// Required  for checkbox
+window.matchMedia = () => ({ matches: true });
 
 describe('TreeView with no props or children', () => {
-  const defaultRender = (
-    <IntlProvider locale={locale} messages={messages}>
-      <TreeView />
-    </IntlProvider>
-  );
+  const defaultRender = <TreeView /> ;
 
   // Snapshot Tests
   it('should render a default component', () => {
-    const wrapper = mount(defaultRender);
+    const wrapper = mountWithIntl(defaultRender);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -36,15 +32,11 @@ describe('TreeView with no props or children', () => {
 
 
 describe('TreeViewBase with no props or children', () => {
-  const defaultRender = (
-    <IntlProvider locale={locale} messages={messages}>
-      <TreeViewBase />
-    </IntlProvider>
-  );
+  const defaultRender = <TreeViewBase />;
 
   // Snapshot Tests
   it('should render a default component', () => {
-    const wrapper = mount(defaultRender);
+    const wrapper = mountWithIntl(defaultRender);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -58,39 +50,35 @@ describe('TreeViewBase with no props or children', () => {
 });
 
 describe('Empty TreeView with title', () => {
-  const treeViewTitleRender = (
-    <IntlProvider locale={locale} messages={messages}>
-      <TreeView title="test-title" />
-    </IntlProvider>  );
+  const treeViewTitleRender = <TreeView title="test-title" />;
 
   // Snapshot Tests
   it('should render a empty tree with title in header', () => {
-    const wrapper = mount(treeViewTitleRender);
+    const wrapper = mountWithIntl(treeViewTitleRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Empty TreeView with selection enabled', () => {
   const treeViewSelectionEnabledRender = (
-    <IntlProvider locale={locale} messages={messages}>
-      <TreeView
+    <TreeView
         title="test-title"
         selectionEnabled
-      />
-    </IntlProvider>
+    />
+   
   );
 
   const newLocal = 'should render a empty tree with checkbox in header';
   // Snapshot Tests
   it(newLocal, () => {
-    const wrapper = mount(treeViewSelectionEnabledRender);
+    const wrapper = mountWithIntl(treeViewSelectionEnabledRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView with dummy event callbacks', () => {
   const treeViewCallbacksRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         onExpand={() => {}}
@@ -111,24 +99,24 @@ describe('TreeView with dummy event callbacks', () => {
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a empty tree with callbacks', () => {
-    const wrapper = mount(treeViewCallbacksRender);
+    const wrapper = mountWithIntl(treeViewCallbacksRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Empty TreeView with singleRootExpansion turned on', () => {
   const treeViewSingleRootExpansionRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         singleRootExpansion
       />
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
@@ -140,25 +128,25 @@ describe('Empty TreeView with singleRootExpansion turned on', () => {
 
 describe('Empty TreeView with isAllInitiallySelected turned on', () => {
   const treeViewIsAllInitiallySelectedRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
         isAllInitiallySelected
       />
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a empty tree with isAllInitiallySelected turned on - checkbox should not be checked', () => {
-    const wrapper = mount(treeViewIsAllInitiallySelectedRender);
+    const wrapper = mountWithIntl(treeViewIsAllInitiallySelectedRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Empty TreeView with isAllInitiallySelected turned on and empty children array', () => {
   const treeViewIsAllInitiallySelectedWithEmptyChildrenRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -166,38 +154,38 @@ describe('Empty TreeView with isAllInitiallySelected turned on and empty childre
       >
         {[]}
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a empty tree - checkbox should not be checked', () => {
-    const wrapper = mount(treeViewIsAllInitiallySelectedWithEmptyChildrenRender);
+    const wrapper = mountWithIntl(treeViewIsAllInitiallySelectedWithEmptyChildrenRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Empty TreeView with isAllInitiallySelected turned off and empty children array', () => {
   const treeViewIsAllInitiallySelectedOffWithEmptyChildrenRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
       >
         {[]}
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a empty tree - checkbox should not be checked', () => {
-    const wrapper = mount(treeViewIsAllInitiallySelectedOffWithEmptyChildrenRender);
+    const wrapper = mountWithIntl(treeViewIsAllInitiallySelectedOffWithEmptyChildrenRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Empty TreeView with isAllInitiallySelected turned off and multiple empty children arrays', () => {
   const treeViewIsAllInitiallySelectedOffWithMultipleEmptyChildrenArraysRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -205,19 +193,19 @@ describe('Empty TreeView with isAllInitiallySelected turned off and multiple emp
         {[]}
         {[]}
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a empty tree - checkbox should not be checked', () => {
-    const wrapper = mount(treeViewIsAllInitiallySelectedOffWithMultipleEmptyChildrenArraysRender);
+    const wrapper = mountWithIntl(treeViewIsAllInitiallySelectedOffWithMultipleEmptyChildrenArraysRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView with root item, folder has empty array', () => {
   const treeViewFoldersWithEmptyArrayAsChildrenRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -234,19 +222,19 @@ describe('TreeView with root item, folder has empty array', () => {
           {[]}
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a tree with a root level item, empty folder and populated folder', () => {
-    const wrapper = mount(treeViewFoldersWithEmptyArrayAsChildrenRender);
+    const wrapper = mountWithIntl(treeViewFoldersWithEmptyArrayAsChildrenRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView with folders configured with isEmpty set to true', () => {
   const treeViewisEmptyFolderRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
       >
@@ -255,19 +243,19 @@ describe('TreeView with folders configured with isEmpty set to true', () => {
           <TreeView.Item id="f3_i1" text="Folder 3 / Item 1" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a tree with a root level item, empty folder and populated folder', () => {
-    const wrapper = mount(treeViewisEmptyFolderRender);
+    const wrapper = mountWithIntl(treeViewisEmptyFolderRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView with root item, empty folder and populated folder', () => {
   const treeViewItemAndFoldersRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
       >
@@ -278,19 +266,19 @@ describe('TreeView with root item, empty folder and populated folder', () => {
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a tree with a root level item, empty folder and populated folder', () => {
-    const wrapper = mount(treeViewItemAndFoldersRender);
+    const wrapper = mountWithIntl(treeViewItemAndFoldersRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView with isAllInitiallySelected set to true', () => {
   const treeViewAllSelectedRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -302,45 +290,45 @@ describe('Populated TreeView with isAllInitiallySelected set to true', () => {
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree with all items and folders selected', () => {
-    const wrapper = mount(treeViewAllSelectedRender);
+    const wrapper = mountWithIntl(treeViewAllSelectedRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeViewBase with isAllSelected set to true and selectedIds supplied', () => {
   const treeViewBaseWithSelectionsRender = (
-    <IntlProvider locale={locale} messages={messages}>
-      <TreeViewBase
-        title="test-title"
-        selectionEnabled
-        isAllSelected
-        selectedIds={['i1', 'f3_i1', 'f3_i2']}
-      >
-        <TreeViewBase.Item id="i1" text="Item 1" />
-        <TreeViewBase.Folder id="f2" text="Folder 2" />
-        <TreeViewBase.Folder id="f3" text="Folder 3" isInitiallyOpen >
-          <TreeViewBase.Item id="f3_i1" text="Folder 3 / Item 1" />
-          <TreeViewBase.Item id="f3_i2" text="Folder 3 / Item 2" />
-        </TreeViewBase.Folder>
-      </TreeViewBase>
-    </IntlProvider>
+  
+    <TreeViewBase
+      title="test-title"
+      selectionEnabled
+      isAllSelected
+      selectedIds={['i1', 'f3_i1', 'f3_i2']}
+    >
+      <TreeViewBase.Item id="i1" text="Item 1" />
+      <TreeViewBase.Folder id="f2" text="Folder 2" />
+      <TreeViewBase.Folder id="f3" text="Folder 3" isInitiallyOpen >
+        <TreeViewBase.Item id="f3_i1" text="Folder 3 / Item 1" />
+        <TreeViewBase.Item id="f3_i2" text="Folder 3 / Item 2" />
+      </TreeViewBase.Folder>
+    </TreeViewBase>
+   
   );
 
   // Snapshot Tests
   it('should render a populated TreeViewBase with the header checkbox checked and selected ids checked', () => {
-    const wrapper = mount(treeViewBaseWithSelectionsRender);
+    const wrapper = mountWithIntl(treeViewBaseWithSelectionsRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView with specific items/folders initially selected', () => {
   const treeViewSomeSelectedRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -359,12 +347,12 @@ describe('Populated TreeView with specific items/folders initially selected', ()
           <TreeView.Item id="f4_i2" text="Folder 4 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree with specific items/folders initially selected', () => {
-    const wrapper = mount(treeViewSomeSelectedRender);
+    const wrapper = mountWithIntl(treeViewSomeSelectedRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
@@ -391,7 +379,7 @@ describe('Populated TreeView where specific items/folders have indicators and ac
     </div>
   );
   const treeViewIndicatorsActionsRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -410,19 +398,19 @@ describe('Populated TreeView where specific items/folders have indicators and ac
           <TreeView.Item id="f4_i2" text="Folder 4 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree where specific items/folders have indicators and actions', () => {
-    const wrapper = mount(treeViewIndicatorsActionsRender);
+    const wrapper = mountWithIntl(treeViewIndicatorsActionsRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView where specific items/folders have custom props', () => {
   const treeViewCustomPropsRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -441,19 +429,19 @@ describe('Populated TreeView where specific items/folders have custom props', ()
           <TreeView.Item id="f4_i2" text="Folder 4 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree where specific items/folders have custom props', () => {
-    const wrapper = mount(treeViewCustomPropsRender);
+    const wrapper = mountWithIntl(treeViewCustomPropsRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView with nested folders', () => {
   const treeViewNestedFoldersRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -472,19 +460,19 @@ describe('Populated TreeView with nested folders', () => {
         </TreeView.Folder>
         <TreeView.Item id="i1" text="Item 1" style={{ backgroundColor: 'lightPink' }} />
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree with nested folders', () => {
-    const wrapper = mount(treeViewNestedFoldersRender);
+    const wrapper = mountWithIntl(treeViewNestedFoldersRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView where first folder has selected first child', () => {
   const treeViewFolderFirstVisibleRowStyleRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -503,19 +491,19 @@ describe('Populated TreeView where first folder has selected first child', () =>
         </TreeView.Folder>
         <TreeView.Item id="i1" text="Item 1" style={{ backgroundColor: 'lightPink' }} />
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree where first folder has selected first child', () => {
-    const wrapper = mount(treeViewFolderFirstVisibleRowStyleRender);
+    const wrapper = mountWithIntl(treeViewFolderFirstVisibleRowStyleRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView where first folder has selected first child - selection not enabled', () => {
   const treeViewFolderFirstVisibleRowNoSelectionStyleRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
       >
@@ -533,19 +521,19 @@ describe('Populated TreeView where first folder has selected first child - selec
         </TreeView.Folder>
         <TreeView.Item id="i1" text="Item 1" style={{ backgroundColor: 'lightPink' }} />
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree where first folder has selected first child - selection not enabled', () => {
-    const wrapper = mount(treeViewFolderFirstVisibleRowNoSelectionStyleRender);
+    const wrapper = mountWithIntl(treeViewFolderFirstVisibleRowNoSelectionStyleRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Populated TreeView where first root item is selected', () => {
   const treeViewFirstRootItemSelected = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -564,19 +552,19 @@ describe('Populated TreeView where first root item is selected', () => {
           </TreeView.Folder>
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a populated tree where first first root item is selected', () => {
-    const wrapper = mount(treeViewFirstRootItemSelected);
+    const wrapper = mountWithIntl(treeViewFirstRootItemSelected);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView w/single root expansion and two root level folders are configured to be initially open', () => {
   const treeViewSingleRootExpansionTwoRootsConfiguredOpen = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         singleRootFolderExpansion
@@ -595,19 +583,19 @@ describe('TreeView w/single root expansion and two root level folders are config
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render with only one root level folder open', () => {
-    const wrapper = mount(treeViewSingleRootExpansionTwoRootsConfiguredOpen);
+    const wrapper = mountWithIntl(treeViewSingleRootExpansionTwoRootsConfiguredOpen);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView w/single root expansion and one root level folder is configured to be initially open', () => {
   const treeViewSingleRootExpansionOneRootConfiguredOpen = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         singleRootFolderExpansion
@@ -626,19 +614,19 @@ describe('TreeView w/single root expansion and one root level folder is configur
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render with one root level folder open', () => {
-    const wrapper = mount(treeViewSingleRootExpansionOneRootConfiguredOpen);
+    const wrapper = mountWithIntl(treeViewSingleRootExpansionOneRootConfiguredOpen);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView w/single root expansion and no root level folders configured to be initially open', () => {
   const treeViewSingleRootExpansionNoRootConfiguredOpen = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         singleRootFolderExpansion
@@ -657,36 +645,36 @@ describe('TreeView w/single root expansion and no root level folders configured 
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render with no root level folder open', () => {
-    const wrapper = mount(treeViewSingleRootExpansionNoRootConfiguredOpen);
+    const wrapper = mountWithIntl(treeViewSingleRootExpansionNoRootConfiguredOpen);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView w/single root expansion and no children', () => {
   const treeViewSingleRootExpansionNoChildren = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         singleRootFolderExpansion
       />
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render TreeView with singleRootFolderExpansion prop but no children', () => {
-    const wrapper = mount(treeViewSingleRootExpansionNoChildren);
+    const wrapper = mountWithIntl(treeViewSingleRootExpansionNoChildren);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('TreeView w/all initially selected', () => {
   const treeViewItemFirstVisibleRowStyleRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
         selectionEnabled
@@ -706,19 +694,19 @@ describe('TreeView w/all initially selected', () => {
           <TreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </TreeView.Folder>
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render with all folders/items selected', () => {
-    const wrapper = mount(treeViewItemFirstVisibleRowStyleRender);
+    const wrapper = mountWithIntl(treeViewItemFirstVisibleRowStyleRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('SingleSelectTreeView', () => {
   const singleSelectTreeView = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <SingleSelectTreeView
         title="Test TreeView - Single Selection"
       >
@@ -748,28 +736,28 @@ describe('SingleSelectTreeView', () => {
           <SingleSelectTreeView.Item id="f3_i2" text="Folder 3 / Item 2" />
         </SingleSelectTreeView.Folder>
       </SingleSelectTreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render SingleSelectTreeView with one selected item', () => {
-    const wrapper = mount(singleSelectTreeView);
+    const wrapper = mountWithIntl(singleSelectTreeView);
     expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('SingleSelectTreeView with no children', () => {
   const singleSelectTreeViewNoChildren = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <SingleSelectTreeView
         title="Test TreeView - Single Selection"
       />
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('Should render SingleSelectTreeView with no children', () => {
-    const wrapper = mount(singleSelectTreeViewNoChildren);
+    const wrapper = mountWithIntl(singleSelectTreeViewNoChildren);
     expect(wrapper).toMatchSnapshot();
   });
 });
@@ -782,7 +770,7 @@ describe('TreeView with React Nodes for text props', () => {
   const item1Text = (<span><strong><span style={{ color: 'red' }}>(Draft)</span> -</strong> Item 1</span>);
   const folder2Text = (<span>Folder 2 <i style={{ color: 'gray' }}><strong>(Empty)</strong></i></span>);
   const treeViewItemAndFoldersRender = (
-    <IntlProvider locale={locale} messages={messages}>
+    
       <TreeView
         title="test-title"
       >
@@ -790,12 +778,12 @@ describe('TreeView with React Nodes for text props', () => {
         <TreeView.Folder id="f2" text={folder2Text} />
         <TreeView.Item id="i3" text={<span>{rule.draftIndicator === 1 && <strong> (Draft) </strong>} {rule.name}</span>} />
       </TreeView>
-    </IntlProvider>
+   
   );
 
   // Snapshot Tests
   it('should render a tree with a root level item, empty folder and populated folder', () => {
-    const wrapper = mount(treeViewItemAndFoldersRender);
+    const wrapper = mountWithIntl(treeViewItemAndFoldersRender);
     expect(wrapper).toMatchSnapshot();
   });
 });
