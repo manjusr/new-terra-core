@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import uniqueid from 'lodash.uniqueid';
 import * as KeyCode from 'keycode-js';
@@ -10,7 +12,7 @@ import FrameUtil from '../shared/_FrameUtil';
 import styles from '../shared/_Frame.module.scss';
 import MenuUtil from '../shared/_MenuUtil';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const propTypes = {
   /**
@@ -81,6 +83,10 @@ const propTypes = {
    */
   onBlur: PropTypes.func,
   /**
+   * Callback function triggered when the frame is clicked.
+   */
+  onClick: PropTypes.func,
+  /**
    * Callback function triggered when the frame gains focus.
    */
   onFocus: PropTypes.func,
@@ -136,6 +142,15 @@ const defaultProps = {
 /* This rule can be removed when eslint-plugin-jsx-a11y is updated to ~> 6.0.0 */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 class Frame extends React.Component {
+  /**
+   * Handles the mouse down events.
+   * @param {event} event - The mouse down event.
+   */
+  static handleMouseDown(event) {
+    // Preventing default events stops the search input from losing focus.
+    event.preventDefault();
+  }
+
   constructor(props) {
     super(props);
 
@@ -159,25 +174,35 @@ class Frame extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.positionDropdown = this.positionDropdown.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleInputMouseDown = this.handleInputMouseDown.bind(this);
     this.handleInputFocus = this.handleInputFocus.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
-    this.handleToggleMouseDown = this.handleToggleMouseDown.bind(this);
-    this.handleToggleButtonMouseDown = this.handleToggleButtonMouseDown.bind(this);
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+    this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.role = this.role.bind(this);
     this.visuallyHiddenComponent = React.createRef();
     this.selectMenu = '#terra-select-menu';
   }
 
+  componentDidMount() {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!Element.prototype.hasOwnProperty('inert')) {
+      // IE10 throws an error if wicg-inert is imported too early, as wicg-inert tries to set an observer on document.body which may not exist on import
+      // eslint-disable-next-line global-require
+      require('wicg-inert/dist/inert');
+    }
+  }
+
   componentDidUpdate(previousProps, previousState) {
     if (FrameUtil.shouldPositionDropdown(previousState, this.state, this.dropdown)) {
       clearTimeout(this.debounceTimer);
+      this.dropdown.setAttribute('inert', '');
       this.debounceTimer = setTimeout(this.positionDropdown, !previousState.isOpen ? 0 : 100);
     }
   }
@@ -267,8 +292,8 @@ class Frame extends React.Component {
      */
     if (event && event.target
       && (event.target.hasAttribute('data-terra-form-select-toggle-button')
-      || event.target.hasAttribute('data-terra-form-select-toggle-button-icon'))) {
-      this.setState({ isOpen: true, isPositioned: false });
+        || event.target.hasAttribute('data-terra-form-select-toggle-button-icon'))) {
+      this.setState({ isOpen: true, isPositioned: false, isFocused: true });
 
       // Allows time for state update to render select menu DOM before shifting focus to it
       setTimeout(() => {
@@ -303,7 +328,15 @@ class Frame extends React.Component {
 
     const { dropdownAttrs, maxHeight, isTouchAccessible } = this.props;
 
-    this.setState(FrameUtil.dropdownPosition(dropdownAttrs, this.select, this.dropdown, maxHeight, isTouchAccessible));
+    const updateDropDownAttributes = () => {
+      if (this.state.isPositioned) {
+        this.dropdown.removeAttribute('inert');
+        this.dropdown.removeAttribute('aria-hidden');
+        document.querySelector(this.selectMenu).setAttribute('tabIndex', '0');
+      }
+    };
+
+    this.setState(FrameUtil.dropdownPosition(dropdownAttrs, this.select, this.dropdown, maxHeight, isTouchAccessible), updateDropDownAttributes);
   }
 
   /**
@@ -331,6 +364,18 @@ class Frame extends React.Component {
 
     if (this.props.onBlur) {
       this.props.onBlur(event);
+    }
+  }
+
+  /**
+   * Handles the click events.
+   * @param {event} event - The click event.
+   */
+  handleClick(event) {
+    this.openDropdown(event);
+
+    if (this.props.onClick) {
+      this.props.onClick(event);
     }
   }
 
@@ -384,17 +429,6 @@ class Frame extends React.Component {
   }
 
   /**
-   * Handles the mouse down events.
-   * @param {event} event - The mouse down event.
-   */
-  handleMouseDown(event) {
-    // Preventing default events stops the search input from losing focus.
-    // The default variant has no search input therefore the mouse down gives the component focus.
-    event.preventDefault();
-    this.openDropdown(event);
-  }
-
-  /**
    * Handles the input mouse down events.
    * @param {event} event - The mouse down event.
    */
@@ -418,18 +452,18 @@ class Frame extends React.Component {
   }
 
   /**
-   * Handles the toggle mouse down events.
+   * Handles the toggle click event.
    */
-  handleToggleMouseDown() {
+  handleToggleClick() {
     if (this.state.isOpen) {
       this.closeDropdown();
     }
   }
 
   /**
-   * Handles the toggle button mouse down events.
+   * Handles the toggle button click event.
    */
-  handleToggleButtonMouseDown() {
+  handleToggleButtonClick() {
     if (this.state.isOpen) {
       this.closeDropdown();
       if (this.input) {
@@ -565,7 +599,12 @@ class Frame extends React.Component {
         ]);
 
         return (
-          <div data-terra-form-select-toggle className={toggleClasses} onMouseDown={this.handleToggleMouseDown}>
+          /**
+           * The toggle does not receive keyboard focus and cannot respond to key press events.
+           * Key press events will be caught and evaluated by the frame.
+           */
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <div data-terra-form-select-toggle className={toggleClasses} onClick={this.handleToggleClick}>
             <span className={cx('arrow-icon')} />
           </div>
         );
@@ -587,7 +626,7 @@ class Frame extends React.Component {
             className={cx('toggle-btn')}
             aria-label={mobileButtonUsageGuidanceTxt}
             data-terra-form-select-toggle-button
-            onMouseDown={this.handleToggleButtonMouseDown}
+            onClick={this.handleToggleClick}
           >
             <span className={cx('arrow-icon')} data-terra-form-select-toggle-button-icon />
           </button>
@@ -600,7 +639,12 @@ class Frame extends React.Component {
     ]);
 
     return (
-      <div data-terra-form-select-toggle className={toggleClasses} onMouseDown={this.toggleDropdown}>
+      /**
+       * The toggle does not receive keyboard focus and cannot respond to key press events.
+       * Key press events will be caught and evaluated by the frame.
+       */
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <div data-terra-form-select-toggle className={toggleClasses} onClick={this.toggleDropdown}>
         <span className={cx('arrow-icon')} />
       </div>
     );
@@ -632,17 +676,22 @@ class Frame extends React.Component {
       ...customProps
     } = this.props;
 
-    const selectClasses = cx([
-      'select',
-      'multiple',
-      { 'is-above': this.state.isAbove },
-      { 'is-disabled': disabled },
-      { 'is-focused': this.state.isFocused },
-      { 'is-invalid': isInvalid },
-      { 'is-incomplete': (isIncomplete && required && !isInvalid) },
-      { 'is-open': this.state.isOpen },
+    const theme = this.context;
+
+    const selectClasses = classNames(
+      cx([
+        'select',
+        'multiple',
+        { 'is-above': this.state.isAbove },
+        { 'is-disabled': disabled },
+        { 'is-focused': this.state.isFocused },
+        { 'is-invalid': isInvalid },
+        { 'is-incomplete': (isIncomplete && required && !isInvalid) },
+        { 'is-open': this.state.isOpen },
+        theme.className,
+      ]),
       customProps.className,
-    ]);
+    );
 
     const labelId = `terra-select-screen-reader-label-${uniqueid()}`;
     const displayId = `terra-select-screen-reader-display-${uniqueid()}`;
@@ -677,9 +726,10 @@ class Frame extends React.Component {
         aria-owns={this.state.isOpen ? 'terra-select-menu' : undefined}
         className={selectClasses}
         onBlur={this.handleBlur}
+        onClick={this.handleClick}
         onFocus={this.handleFocus}
         onKeyDown={this.handleKeyDown}
-        onMouseDown={this.handleMouseDown}
+        onMouseDown={Frame.handleMouseDown}
         onTouchStart={this.handleTouchStart}
         tabIndex="-1"
         ref={(select) => { this.select = select; }}
@@ -725,5 +775,6 @@ class Frame extends React.Component {
 
 Frame.propTypes = propTypes;
 Frame.defaultProps = defaultProps;
+Frame.contextType = ThemeContext;
 
 export default injectIntl(Frame);

@@ -3,6 +3,39 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.43.0 - (July 7, 2020)
+------------------
+### Changed
+* updated `master` references to `main`.
+
+3.42.0 - (June 11, 2020)
+------------------
+### Changed
+* Updated wdio test to support testing against firefox
+
+3.41.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+3.40.0 - (June 2, 2020)
+------------------
+### Fixed
+* Fixed button not losing `focus` and `active` styles when made disabled via user interaction.
+
+3.39.0 - (May 19, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+3.38.0 - (May 5, 2020)
+------------------
+### Added
+* Added an interaction media query to apply `hover` styles only on non-touch devices.
+
+3.37.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

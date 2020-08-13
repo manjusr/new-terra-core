@@ -3,6 +3,19 @@ Changelog
 
 Unreleased
 ----------
+
+2.41.0 - (July 7, 2020)
+------------------
+### Changed
+* updated `master` references to `main`.
+
+2.40.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+2.39.0 - (April 28, 2020)
+------------------
 ### Added
 * Added clinical-lowlight-theme wdio screenshots
 

@@ -3,6 +3,15 @@ Changelog
 
 Unreleased
 ----------
+
+1.5.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+* Apply themes by context and directly include packaged themes.
+
+1.4.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

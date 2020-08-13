@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import * as KeyCode from 'keycode-js';
 import DropdownButtonBase from './_DropdownButtonBase';
 import styles from './DropdownButton.module.scss';
 import Item from './Item';
 import SplitButton, { Variants as SplitButtonVariants } from './SplitButton';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const Variants = {
   NEUTRAL: 'neutral',
@@ -60,7 +61,7 @@ class DropdownButton extends React.Component {
     this.setButtonNode = this.setButtonNode.bind(this);
     this.getButtonNode = this.getButtonNode.bind(this);
     this.setListNode = this.setListNode.bind(this);
-    this.openDropDown = this.openDropDown.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
     this.state = { isOpen: false, isActive: false, openedViaKeyboard: false };
   }
 
@@ -76,7 +77,7 @@ class DropdownButton extends React.Component {
     return this.buttonNode;
   }
 
-  openDropDown(event) {
+  toggleDropDown(event) {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
     // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Button#Clicking_and_focus
     // Button on Firefox, Safari and IE running on OS X does not receive focus when clicked.
@@ -88,7 +89,7 @@ class DropdownButton extends React.Component {
     if (this.state.isOpen) {
       this.setState({ openedViaKeyboard: false });
     }
-    this.openDropDown(event);
+    this.toggleDropDown(event);
   }
 
   handleDropdownRequestClose(callback) {
@@ -125,8 +126,9 @@ class DropdownButton extends React.Component {
 
   handleKeyUp(event) {
     if (event.keyCode === KeyCode.KEY_SPACE || event.keyCode === KeyCode.KEY_RETURN) {
+      event.preventDefault();
       this.setState({ isActive: false });
-      this.openDropDown(event);
+      this.toggleDropDown(event);
     }
   }
 
@@ -141,6 +143,8 @@ class DropdownButton extends React.Component {
       ...customProps
     } = this.props;
 
+    const theme = this.context;
+
     const { isOpen, isActive, openedViaKeyboard } = this.state;
 
     const classnames = cx(
@@ -153,6 +157,7 @@ class DropdownButton extends React.Component {
         the dropdown open will cause the dropdown to close and reopen
       */
       { 'ignore-react-onclickoutside': isOpen },
+      theme.className,
     );
 
     return (
@@ -191,6 +196,7 @@ class DropdownButton extends React.Component {
 
 DropdownButton.propTypes = propTypes;
 DropdownButton.defaultProps = defaultProps;
+DropdownButton.contextType = ThemeContext;
 
 export default DropdownButton;
 export {

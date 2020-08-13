@@ -3,6 +3,35 @@ ChangeLog
 
 Unreleased
 ----------
+
+4.12.0 - (July 21, 2020)
+------------------
+### Changed
+* Align column and rows for selectable tables.
+
+4.11.0 - (July 14, 2020)
+------------------
+### Fixed
+* Corrected themeable variable duplicates and missing variables.
+
+4.10.0 - (July 7, 2020)
+------------------
+### Changed
+* Rows and Header checkbox when disabled are now accessible for screenreaders to read out accordingly.
+
+4.9.0 - (June 23, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.8.0 - (June 9, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+* Update wdio test configuration to use root wdio config
+
+4.7.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

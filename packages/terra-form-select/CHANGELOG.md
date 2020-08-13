@@ -3,6 +3,59 @@ ChangeLog
 
 Unreleased
 ----------
+
+6.11.0 - (July 14, 2020)
+------------------
+### Fixed
+* Fixed an issue on mobile that prevented the tag and multi-select variants from shifting focus onto the input when opened via the dropdown arrow
+
+### Added
+* Added `NativeSelect` implementation to replace the default select variant.
+
+6.10.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+6.9.0 - (June 16, 2020)
+------------------
+### Fixed
+* Fixed build issues for clinical theme.
+
+6.8.0 - (June 11, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+6.7.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+6.6.0 - (June 2, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+* Updated wdio test to support testing against firefox
+* Disabled wdio axe color-contrast testing on placeholder examples for IE testing. This will be re-enabled when https://github.com/cerner/terra-core/issues/2992 is resolved.
+
+6.5.0 - (May 19, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+6.4.0 - (May 12, 2020)
+------------------
+### Fixed
+* Fixed issue when using `isTouchAccessible` that could cause the dropdown to detach from the input
+* Fixed inconsistent hover interaction styles across all variants of select.
+
+### Changed
+* Set placeholders opacity to 1 to make firefox color-contrast consistent with other browsers
+
+6.3.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added
@@ -59,7 +112,7 @@ Unreleased
 
 5.39.0 - (January 7, 2020)
 ------------------
-### Fixed 
+### Fixed
 * Fixed page scrolling when embedded within an iframe.
 * Fixed accessibility issue due to invalid `aria-activedescendant` value.
 
@@ -530,7 +583,7 @@ Unreleased
 
 4.0.0 - (May 23, 2018)
 ------------------
-### Breaking Changes - [Upgrade Guide](https://github.com/cerner/terra-core/tree/master/packages/terra-form-select/docs/UPGRADEGUIDE.md)
+### Breaking Changes - [Upgrade Guide](https://github.com/cerner/terra-core/tree/main/packages/terra-form-select/docs/UPGRADEGUIDE.md)
 * Removed `boundingRef`
 * Removed `isPlaceholderHidden` - A placeholder option is no longer added by default.
 * Removed `name` - Terra recommends handling validations with [react-final-form](https://github.com/final-form/react-final-form).

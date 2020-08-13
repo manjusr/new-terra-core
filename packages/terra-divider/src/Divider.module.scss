@@ -1,3 +1,7 @@
+// Themes
+@import './clinical-lowlight-theme/Divider.module';
+@import './orion-fusion-theme/Divider.module';
+
 :local {
   @mixin terra-divider {
     border-bottom-width: 0;
@@ -10,6 +14,7 @@
 
   .divider {
     @include terra-divider;
+    display: block;
     margin: 0; // remove browser default margin
   }
 

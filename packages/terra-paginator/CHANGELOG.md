@@ -3,6 +3,56 @@ ChangeLog
 
 Unreleased
 ----------
+
+2.55.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.54.0 - (June 23, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.53.0 - (June 11, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.52.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+2.51.0 - (June 2, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+* Updated wdio test to support testing against firefox
+
+2.50.0 - (May 26, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.49.0 - (May 19, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.48.0 - (May 12, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.47.0 - (May 5, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.46.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added
@@ -16,6 +66,7 @@ Unreleased
 2.44.0 - (April 22, 2020)
 ------------------
 ### Changed
+* Updated wdio snapshots due to changes in button.
 * Updated documentation link in README
 
 2.43.0 - (March 31, 2020)

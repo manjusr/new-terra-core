@@ -3,6 +3,39 @@ ChangeLog
 
 Unreleased
 ----------
+
+2.46.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.45.0 - (June 11, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.44.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+2.43.0 - (June 2, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.42.0 - (May 19, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+2.41.0 - (May 5, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+2.40.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

@@ -3,6 +3,24 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.29.0 - (June 23, 2020)
+------------------
+### Added
+* Added display to `block` on hr element in the divider component
+
+3.28.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+3.27.0 - (May 19, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+3.26.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

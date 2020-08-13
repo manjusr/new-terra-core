@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import * as KeyCode from 'keycode-js';
 import { injectIntl, intlShape } from 'react-intl';
 import DropdownButtonBase from './_DropdownButtonBase';
 import styles from './SplitButton.module.scss';
 import Item from './Item';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const Variants = {
   NEUTRAL: 'neutral',
@@ -82,7 +83,7 @@ class SplitButton extends React.Component {
     this.setButtonNode = this.setButtonNode.bind(this);
     this.getButtonNode = this.getButtonNode.bind(this);
     this.setListNode = this.setListNode.bind(this);
-    this.openDropDown = this.openDropDown.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
 
     this.state = {
       isOpen: false, caretIsActive: false, primaryIsActive: false, openedViaKeyboard: false,
@@ -101,7 +102,7 @@ class SplitButton extends React.Component {
     return this.buttonNode;
   }
 
-  openDropDown(event) {
+  toggleDropDown(event) {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
     // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Button#Clicking_and_focus
     // Button on Firefox, Safari and IE running on OS X does not receive focus when clicked.
@@ -113,7 +114,7 @@ class SplitButton extends React.Component {
     if (this.state.isOpen) {
       this.setState({ openedViaKeyboard: false });
     }
-    this.openDropDown(event);
+    this.toggleDropDown(event);
   }
 
   handlePrimaryButtonClick(event) {
@@ -174,8 +175,9 @@ class SplitButton extends React.Component {
 
   handleCaretKeyUp(event) {
     if (event.keyCode === KeyCode.KEY_SPACE || event.keyCode === KeyCode.KEY_RETURN) {
+      event.preventDefault();
       this.setState({ caretIsActive: false });
-      this.openDropDown(event);
+      this.toggleDropDown(event);
     }
   }
 
@@ -201,6 +203,8 @@ class SplitButton extends React.Component {
       openedViaKeyboard,
     } = this.state;
 
+    const theme = this.context;
+
     const caretLabel = intl.formatMessage({ id: 'Terra.dropdownButton.moreOptions' });
 
     const primaryClassnames = cx(
@@ -209,6 +213,7 @@ class SplitButton extends React.Component {
       { 'is-block': isBlock },
       { 'is-compact': isCompact },
       { 'is-active': primaryIsActive },
+      theme.className,
     );
     const caretClassnames = cx(
       'split-button-caret',
@@ -219,6 +224,7 @@ class SplitButton extends React.Component {
         the dropdown open will cause the dropdown to close and reopen
       */
       { 'ignore-react-onclickoutside': isOpen },
+      theme.className,
     );
 
     return (
@@ -269,6 +275,7 @@ class SplitButton extends React.Component {
 
 SplitButton.propTypes = propTypes;
 SplitButton.defaultProps = defaultProps;
+SplitButton.contextType = ThemeContext;
 
 export default injectIntl(SplitButton);
 export { Item, Variants };

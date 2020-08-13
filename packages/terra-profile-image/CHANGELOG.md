@@ -3,6 +3,29 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.33.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+3.32.0 - (June 11, 2020)
+------------------
+### Changed
+* Update jest test variable name
+
+3.31.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+3.30.0 - (June 2, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+3.29.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

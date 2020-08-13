@@ -3,6 +3,37 @@ ChangeLog
 
 Unreleased
 ----------
+
+1.18.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+1.17.0 - (June 23, 2020)
+------------------
+### Changed
+* Fixed dropdown not opening on pressing space in firefox, and reverted disabled tests for firefox.
+
+1.16.0 - (June 11, 2020)
+------------------
+### Changes
+* Disabled wdio test which opens dropdown menu with space key for firefox testing. This will be re-enabled when https://github.com/cerner/terra-core/issues/3008 is resolved.
+
+### Removed
+* Removed duplicate test
+
+1.15.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+1.14.0 - (May 19, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+1.13.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

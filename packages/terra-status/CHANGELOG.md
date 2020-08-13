@@ -3,6 +3,29 @@ ChangeLog
 
 Unreleased
 ----------
+
+4.32.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.31.0 - (June 23, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.30.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+4.29.0 - (May 19, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.28.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

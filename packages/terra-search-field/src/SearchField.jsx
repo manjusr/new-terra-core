@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import Button from 'terra-button';
 import * as KeyCode from 'keycode-js';
 import IconSearch from 'terra-icon/lib/icon/IconSearch';
-import Input from 'terra-form-input';
 import { injectIntl, intlShape } from 'react-intl';
 import styles from './SearchField.module.scss';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const Icon = <IconSearch />;
 
@@ -231,11 +232,16 @@ class SearchField extends React.Component {
       ...customProps
     } = this.props;
 
-    const searchFieldClassNames = cx([
-      'search-field',
-      { block: isBlock },
+    const theme = this.context;
+
+    const searchFieldClassNames = classNames(
+      cx(
+        'search-field',
+        { block: isBlock },
+        theme.className,
+      ),
       customProps.className,
-    ]);
+    );
 
     const inputText = inputAttributes && Object.prototype.hasOwnProperty.call(inputAttributes, 'aria-label') ? inputAttributes['aria-label'] : intl.formatMessage({ id: 'Terra.searchField.search' });
 
@@ -266,17 +272,17 @@ class SearchField extends React.Component {
     return (
       <div {...customProps} className={searchFieldClassNames}>
         <div className={cx('input-group')}>
-          <Input
+          <input
             className={cx('input')}
             type="search"
             placeholder={placeholder}
             onChange={this.handleTextChange}
             disabled={isDisabled}
-            ariaLabel={inputText}
+            aria-label={inputText}
             aria-disabled={isDisabled}
             onKeyDown={this.handleKeyDown}
             onInput={this.handleInput}
-            refCallback={this.setInputRef}
+            ref={this.setInputRef}
             {...additionalInputAttributes}
           />
           {clearButton}
@@ -297,5 +303,6 @@ class SearchField extends React.Component {
 
 SearchField.propTypes = propTypes;
 SearchField.defaultProps = defaultProps;
+SearchField.contextType = ThemeContext;
 
 export default injectIntl(SearchField);

@@ -3,6 +3,29 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.6.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+3.5.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+3.4.0 - (June 2, 2020)
+------------------
+### Fixed
+* Updated jest snapshots for terra-image change.
+
+3.3.0 - (May 19, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+3.2.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

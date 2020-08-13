@@ -69,11 +69,11 @@ Terra.describeViewports('Split Button', ['medium'], () => {
     });
 
     it('tries to click the primary button', () => {
-      expect(() => browser.click('[class*=split-button-primary]')).to.throw('is not clickable');
+      expect(() => browser.click('[class*=split-button-primary]')).to.throw('not clickable');
     });
 
     it('tries to click the caret', () => {
-      expect(() => browser.click('[class*=split-button-caret]')).to.throw('is not clickable');
+      expect(() => browser.click('[class*=split-button-caret]')).to.throw('not clickable');
     });
   });
 
@@ -99,10 +99,11 @@ Terra.describeViewports('Split Button', ['medium'], () => {
     it('opens the dropdown with enter', () => {
       browser.keys(['Enter']);
       browser.waitForVisible('[class*=dropdown-list]');
+      browser.keys('Escape');
     });
 
     it('opens the dropdown with space', () => {
-      browser.keys(['Escape', 'Space']);
+      browser.keys('Space');
       browser.waitForVisible('[class*=dropdown-list]');
       // Cleanup the open dropdown, after hooks don't work on it blocks
       browser.keys(['Escape']);

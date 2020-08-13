@@ -1,6 +1,8 @@
 import React from 'react';
+import ThemeContextProvider from 'terra-theme-context/lib/ThemeContextProvider';
+
 /* eslint-disable-next-line import/no-extraneous-dependencies */
-import { shallowWithIntl } from 'terra-enzyme-intl';
+import { shallowWithIntl, renderWithIntl } from 'terra-enzyme-intl';
 import ComboboxFrame from '../../src/combobox/Frame';
 import SingleSelectFrame from '../../src/single/Frame';
 import MultipleFrame from '../../src/multiple/Frame';
@@ -148,6 +150,24 @@ describe('Frame', () => {
     expect(mockBlur).toBeCalled();
   });
 
+  it('should call custom onClick for multi-select frame', () => {
+    const mockClick = jest.fn();
+    const wrapper = shallowWithIntl(<MultipleFrame onClick={mockClick} />);
+
+    wrapper.simulate('click');
+
+    expect(mockClick).toBeCalled();
+  });
+
+  it('should call custom on click for tag frame', () => {
+    const mockClick = jest.fn();
+    const wrapper = shallowWithIntl(<TagFrame onClick={mockClick} />);
+
+    wrapper.simulate('click');
+
+    expect(mockClick).toBeCalled();
+  });
+
   it('should render a clear option', () => {
     const wrapper = shallowWithIntl(<SingleSelectFrame clearOptionDisplay="-Select-" />);
     expect(wrapper).toMatchSnapshot();
@@ -160,6 +180,51 @@ describe('Frame', () => {
 
   it('should render a required Frame', () => {
     const wrapper = shallowWithIntl(<SingleSelectFrame required />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('correctly applies the theme context className for default variant', () => {
+    const wrapper = renderWithIntl(
+      <ThemeContextProvider theme={{ className: 'orion-fusion-theme' }}>
+        <SingleSelectFrame />
+      </ThemeContextProvider>,
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('correctly applies the theme context className for combobox variant', () => {
+    const wrapper = renderWithIntl(
+      <ThemeContextProvider theme={{ className: 'orion-fusion-theme' }}>
+        <ComboboxFrame />
+      </ThemeContextProvider>,
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('correctly applies the theme context className for multiple variant', () => {
+    const wrapper = renderWithIntl(
+      <ThemeContextProvider theme={{ className: 'orion-fusion-theme' }}>
+        <MultipleFrame />
+      </ThemeContextProvider>,
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('correctly applies the theme context className for search variant', () => {
+    const wrapper = renderWithIntl(
+      <ThemeContextProvider theme={{ className: 'orion-fusion-theme' }}>
+        <SearchFrame />
+      </ThemeContextProvider>,
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('correctly applies the theme context className for tag variant', () => {
+    const wrapper = renderWithIntl(
+      <ThemeContextProvider theme={{ className: 'orion-fusion-theme' }}>
+        <TagFrame />
+      </ThemeContextProvider>,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 });

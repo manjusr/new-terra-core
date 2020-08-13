@@ -2,10 +2,12 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import styles from './Input.module.scss';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const propTypes = {
   /**
@@ -49,10 +51,6 @@ const propTypes = {
    */
   pattern: PropTypes.string,
   /**
-   * Placeholder text.
-   */
-  placeholder: PropTypes.string,
-  /**
    * Callback ref to pass into the input dom element.
    */
   refCallback: PropTypes.func,
@@ -88,7 +86,6 @@ const defaultProps = {
   onFocus: undefined,
   name: null,
   pattern: undefined,
-  placeholder: undefined,
   required: false,
   refCallback: undefined,
   type: undefined,
@@ -107,7 +104,6 @@ class Input extends React.Component {
       onFocus,
       name,
       pattern,
-      placeholder,
       refCallback,
       required,
       type,
@@ -117,12 +113,16 @@ class Input extends React.Component {
     } = this.props;
 
     const attributes = { ...customProps };
-    const formInputClassNames = cx([
-      'form-input',
-      { 'form-error': isInvalid },
-      { 'form-incomplete': (isIncomplete && required && !isInvalid) },
+    const theme = this.context;
+    const formInputClassNames = classNames(
+      cx(
+        'form-input',
+        { 'form-error': isInvalid },
+        { 'form-incomplete': (isIncomplete && required && !isInvalid) },
+        theme.className,
+      ),
       attributes.className,
-    ]);
+    );
 
     let ariaLabelText;
 
@@ -148,6 +148,10 @@ class Input extends React.Component {
       attributes.defaultValue = defaultValue;
     }
 
+    if (attributes.placeholder) {
+      attributes.placeholder = null;
+    }
+
     return (
       <input
         {...attributes}
@@ -157,7 +161,6 @@ class Input extends React.Component {
         name={name}
         type={type}
         pattern={pattern}
-        placeholder={placeholder}
         onBlur={onBlur}
         onChange={onChange}
         onFocus={onFocus}
@@ -171,6 +174,7 @@ class Input extends React.Component {
 
 Input.propTypes = propTypes;
 Input.defaultProps = defaultProps;
+Input.contextType = ThemeContext;
 Input.isInput = true;
 
 export default Input;

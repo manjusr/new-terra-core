@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
+import classNamesBind from 'classnames/bind';
+import ThemeContext from 'terra-theme-context';
 import ContentContainer from 'terra-content-container';
 import VisuallyHiddenText from 'terra-visually-hidden-text';
 import styles from './Table.module.scss';
@@ -18,7 +20,7 @@ import CheckMarkCell from './subcomponents/_CheckMarkCell';
 import HeaderChevronCell from './subcomponents/_HeaderChevronCell';
 import HeaderCheckMarkCell from './subcomponents/_HeaderCheckMarkCell';
 
-const cx = classNames.bind(styles);
+const cx = classNamesBind.bind(styles);
 
 const propTypes = {
   /**
@@ -165,6 +167,7 @@ const createCheckCell = (rowData, rowStyle, checkStyle) => {
         label={cellLabel}
         isSelected={cellActiveState}
         isHidden
+        isDisabled={rowData.isDisabled}
       />
     );
   }
@@ -214,6 +217,9 @@ const createHeaderCheckCell = (columnData, rowStyle, checkStyle) => {
       <HeaderCheckMarkCell
         label={cellLabel}
         isHidden
+        isDisabled={cellDisabled}
+        isSelected={cellStatus === 'checked' || cellStatus === 'indeterminate'}
+        isIndeterminate={cellStatus === 'indeterminate'}
       />
     );
   }
@@ -296,7 +302,7 @@ const createSections = (tableData, headerIndex) => {
           isCollapsed={header.isCollapsed}
           isCollapsible={!!header.onToggle}
           metaData={header.metaData}
-          numberOfColumns={tableData.numberOfColumns}
+          numberOfColumns={tableData.checkStyle !== 'toggle' && tableData.rowStyle === 'toggle' ? tableData.numberOfColumns + 1 : tableData.numberOfColumns}
           onSelect={header.onToggle}
         >
           {section.rows ? section.rows.map(rowData => {
@@ -378,15 +384,21 @@ const Table = ({
   summaryId,
   ...customProps
 }) => {
+  const theme = React.useContext(ThemeContext);
+
   // If all column widths are using static sizing alter the table style to display inline.
   const makeInline = columnWidths && columnWidths.length ? columnWidths.every(width => !!width.static) : undefined;
   const hasEndNodes = headerNode || footerNode || showSimpleFooter;
 
-  const tableClasses = cx(
-    'table',
-    { fill },
-    { 'is-inline': makeInline },
-    { outer: !hasEndNodes },
+  const tableClasses = classNames(
+    cx(
+      'table',
+      { fill },
+      { 'is-inline': makeInline },
+      { outer: !hasEndNodes },
+      theme.className,
+    ),
+    customProps.className,
   );
 
   const tableData = {
@@ -407,7 +419,7 @@ const Table = ({
     <div
       {...customProps}
       {...attrSpread}
-      className={customProps.className ? `${tableClasses} ${customProps.className}` : tableClasses}
+      className={tableClasses}
       role="grid"
       aria-rowcount={numberOfRows || rowCount}
       aria-describedby={summaryId}

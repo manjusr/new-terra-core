@@ -3,8 +3,23 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.38.0 - (June 23, 2020)
+------------------
+### Changed
+* Update Usage Section in dev-site doc page
+
+2.27.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+2.26.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
+
 ### Added
 * Added clinical-lowlight-theme wdio screenshots
 

@@ -3,6 +3,19 @@ Changelog
 
 Unreleased
 ----------
+
+5.20.0 - (June 9, 2020)
+------------------
+### Changed
+* Update wdio test configuration to use root wdio config
+
+5.19.0 - (May 26, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+5.18.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added
@@ -402,8 +415,6 @@ Unreleased
 
 1.7.0 - (September 7, 2017)
 ------------------
-### Changed
-* Minor dependency version bump
 ### Changed
 * Update SCSS variable name for breakpoints to avoid conflicts with legacy code
 

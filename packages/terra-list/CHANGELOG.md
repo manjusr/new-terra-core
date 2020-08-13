@@ -3,6 +3,30 @@ ChangeLog
 
 Unreleased
 ----------
+
+4.33.0 - (July 7, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.32.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+4.31.0 - (June 2, 2020)
+------------------
+### Changed
+* Apply themes by context and directly include packaged themes.
+
+4.30.0 - (May 19, 2020)
+------------------
+### Changed
+* Minor dependency version bump
+
+4.29.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added
@@ -169,7 +193,7 @@ Unreleased
 
 4.0.0 - (February 12, 2019)
 ------------------
-### Breaking Changes - [Upgrade Guide](https://github.com/cerner/terra-core/tree/master/packages/terra-list/docs/guides)
+### Breaking Changes - [Upgrade Guide](https://github.com/cerner/terra-core/tree/main/packages/terra-list/docs/guides)
 * Removed Component `SingleSelectList` - No longer supported this uncontrolled variant of list.
 * Removed Component `MultiSelectList` - No longer supported this uncontrolled variant of list.
 * Removed Component `SelectableList` - Removed to avoid the need for cloning child props.

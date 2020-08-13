@@ -3,6 +3,25 @@ ChangeLog
 
 Unreleased
 ----------
+
+3.27.0 - (July 7, 2020)
+------------------
+### Fixed
+* Fixed linter error
+
+3.26.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+3.25.0 - (May 5, 2020)
+------------------
+### Changed
+* Updated syntax for props description
+
+3.24.0 - (April 28, 2020)
+------------------
 ### Changed
 * Removed "View Component Source Code" from docs in favour of source code badge
 ### Added

@@ -3,6 +3,25 @@ ChangeLog
 
 Unreleased
 ----------
+
+2.28.0 - (July 7, 2020)
+------------------
+### Changed
+* updated `master` references to `main`.
+
+2.27.0 - (June 9, 2020)
+------------------
+### Changed
+* Minor file changes to comply with eslint rules
+* Update wdio test configuration to use root wdio config
+
+2.26.0 - (May 12, 2020)
+------------------
+### Changed
+Moved linter ignores to the files in this package rather than at the root package.json level
+
+2.25.0 - (April 28, 2020)
+------------------
 ### Added
 * Added clinical-lowlight-theme wdio screenshots
 

@@ -54,7 +54,13 @@ Terra.describeViewports('Search Field', ['medium'], () => {
       browser.setValue('input', 'Lorem');
     });
 
-    Terra.it.matchesScreenshot('with text');
+    Terra.it.validatesElement('with text');
+  });
+
+  describe('With Placeholder Disabled', () => {
+    before(() => browser.url('/#/raw/tests/terra-search-field/search-field/search-field-with-placeholder-disabled'));
+
+    Terra.it.validatesElement('placeholder');
   });
 
   describe('With Default Value', () => {
